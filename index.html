@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Joseph Michael — Ecommerce Retention Consultant | michaelsmount.com</title>
+<meta name="description" content="Joseph Michael is an ecommerce retention consultant specializing in Klaviyo lifecycle strategy and DTC growth. Explore his interactive portfolio — and try to defend the homepage while you're here.">
+<meta name="author" content="Joseph Michael">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / LinkedIn / Slack -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://michaelsmount.com/">
+<meta property="og:title" content="Joseph Michael — Ecommerce Retention Consultant">
+<meta property="og:description" content="Lifecycle strategy, Klaviyo, and retention systems for DTC and B2B ecommerce brands. Coming soon — with a game to keep you busy.">
+<meta property="og:image" content="https://michaelsmount.com/og-image.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Joseph Michael — Ecommerce Retention Consultant">
+<meta name="twitter:description" content="Lifecycle strategy, Klaviyo, and retention systems for DTC and B2B ecommerce brands. Coming soon — with a game to keep you busy.">
+<meta name="twitter:image" content="https://michaelsmount.com/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --border: #e2e4e9;
+    --text-primary: #1a1d23;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --blue: #3b82f6;
+    --blue-light: #eff6ff;
+    --green: #10b981;
+    --green-light: #ecfdf5;
+    --red: #ef4444;
+    --red-light: #fef2f2;
+    --nav-h: 56px;
+    --score-h: 64px;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+  }
+
+  /* NAV BAR */
+  #nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 20px; gap: 16px;
+    z-index: 100; user-select: none;
+  }
+  #nav .logo { font-size: 14px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; white-space: nowrap; }
+  #nav .logo span { color: var(--blue); }
+  #nav .divider { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
+  #nav .status-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--green-light); border: 1px solid #a7f3d0;
+    border-radius: 99px; padding: 3px 10px;
+    font-size: 11px; font-weight: 500; color: #065f46; white-space: nowrap;
+  }
+  #nav .status-pill::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--green); border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  #nav .spacer { flex: 1; }
+  #nav .email {
+    font-size: 12px; font-weight: 400; color: var(--text-secondary);
+    font-family: 'DM Mono', monospace; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  #nav .email svg { opacity: 0.5; }
+  @media (max-width: 400px) { #nav .email { display: none; } }
+
+  /* SCORE BAR */
+  #scorebar {
+    position: fixed; top: var(--nav-h); left: 0; right: 0;
+    height: var(--score-h);
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 20px;
+    z-index: 99; user-select: none;
+  }
+  .metric-card { display: flex; flex-direction: column; gap: 1px; padding: 0 20px 0 0; min-width: 100px; }
+  .metric-card + .metric-card { padding-left: 20px; border-left: 1px solid var(--border); margin-left: 4px; }
+  .metric-label { font-size: 10px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; }
+  .metric-value { font-size: 20px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1; }
+  .metric-value.green { color: var(--green); }
+  #scorebar .spacer { flex: 1; }
+  #hint-text { font-size: 11px; color: var(--text-tertiary); font-weight: 400; text-align: right; line-height: 1.4; }
+
+  /* CANVAS */
+  #game-wrap { position: fixed; top: calc(var(--nav-h) + var(--score-h)); left: 0; right: 0; bottom: 0; background: var(--bg); overflow: hidden; }
+  #game-canvas { display: block; width: 100%; height: 100%; cursor: crosshair; touch-action: none; }
+
+  /* OVERLAYS */
+  .screen-overlay {
+    position: fixed; inset: 0;
+    background: rgba(244,245,247,0.90);
+    backdrop-filter: blur(12px) saturate(150%);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; transition: opacity 0.3s ease;
+  }
+  .screen-overlay.hidden { opacity: 0; pointer-events: none; }
+
+  /* MODAL CARD */
+  .modal-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 40px; max-width: 420px; width: calc(100% - 40px);
+    text-align: center;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: 8px; padding: 6px 14px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;
+  }
+  .badge-blue { background: var(--blue-light); border: 1px solid #bfdbfe; color: var(--blue); }
+  .badge-red  { background: var(--red-light);  border: 1px solid #fecaca; color: var(--red); }
+  .badge-red::before { content: '⚠'; font-size: 13px; }
+
+  /* HEADINGS */
+  .modal-card h1 { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; color: var(--text-primary); margin-bottom: 10px; line-height: 1.2; }
+  .modal-card h2 { font-size: 24px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 8px; }
+  .modal-card .sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.5; }
+
+  /* HOW-TO LIST */
+  .how-to-list { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: left; margin-bottom: 24px; }
+  .how-to-list li { font-size: 12px; color: var(--text-secondary); padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; list-style: none; }
+  .how-to-list li .icon { flex-shrink: 0; margin-top: 1px; }
+
+  /* STATS GRID */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .stat-cell { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: left; }
+  .stat-cell .lbl { font-size: 10px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .stat-cell .val { font-size: 22px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--text-primary); letter-spacing: -0.02em; }
+
+  /* BUTTONS */
+  .btn {
+    display: block; width: 100%; padding: 14px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; letter-spacing: -0.01em; text-decoration: none; text-align: center;
+    transition: background 0.15s, transform 0.1s; border: none;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .btn-blue:hover { background: #2563eb; }
+  .btn-green { background: var(--green-light); color: #065f46; border: 1px solid #a7f3d0; margin-top: 10px; }
+  .btn-green:hover { background: #d1fae5; }
+
+  /* MODAL FOOTER */
+  .modal-footer { margin-top: 16px; font-size: 11px; color: var(--text-tertiary); }
+  .modal-footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV BAR -->
+<nav id="nav">
+  <div class="logo">Joseph <span>Michael</span></div>
+  <div class="divider"></div>
+  <div class="status-pill">Status: Coming Soon</div>
+  <div class="spacer"></div>
+  <div class="email">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </svg>
+    joseph@michaelsmount.com
+  </div>
+</nav>
+
+<!-- SCORE BAR -->
+<div id="scorebar">
+  <div class="metric-card">
+    <div class="metric-label">Revenue</div>
+    <div class="metric-value green" id="score-display">$0</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Threats Stopped</div>
+    <div class="metric-value" id="kill-display">0</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Wave</div>
+    <div class="metric-value" id="wave-display">1</div>
+  </div>
+  <div class="spacer"></div>
+  <div id="hint-text">Click or tap<br>to fire Engagement</div>
+</div>
+
+<!-- GAME CANVAS -->
+<div id="game-wrap">
+  <canvas id="game-canvas"></canvas>
+</div>
+
+<!-- START SCREEN -->
+<div id="start-screen" class="screen-overlay">
+  <div class="modal-card">
+    <div class="badge badge-blue">🎮 Arcade Mode</div>
+    <h1>Bounce Rate<br>Defender</h1>
+    <p class="sub">Bad traffic is attacking your site metrics. Fire Engagements to eliminate Bounces before they hit your homepage.</p>
+    <ul class="how-to-list">
+      <li><span class="icon">🖱️</span><span><strong>Click or tap</strong> anywhere to fire an Engagement at that location</span></li>
+      <li><span class="icon">🔴</span><span><strong>Red arrows</strong> are Bounces — destroy them before they reach the base</span></li>
+      <li><span class="icon">🟢</span><span><strong>Green reticles</strong> expand on impact — any Bounce in range is eliminated</span></li>
+      <li><span class="icon">⚠️</span><span><strong>One hit</strong> to the bottom bar ends the session</span></li>
+    </ul>
+    <button id="start-btn" class="btn btn-blue">Launch Dashboard →</button>
+  </div>
+</div>
+
+<!-- GAME OVER OVERLAY -->
+<div id="overlay" class="screen-overlay hidden">
+  <div class="modal-card">
+    <div class="badge badge-red">Alert: Session Terminated</div>
+    <h2>Bounce Rate Exceeded</h2>
+    <p class="sub">A Bounce reached the homepage. Your session metrics have been compromised.</p>
+    <div class="stats-grid">
+      <div class="stat-cell"><div class="lbl">Revenue Saved</div><div class="val" id="final-score">$0</div></div>
+      <div class="stat-cell"><div class="lbl">Threats Stopped</div><div class="val" id="final-kills">0</div></div>
+      <div class="stat-cell"><div class="lbl">Wave Reached</div><div class="val" id="final-wave">1</div></div>
+      <div class="stat-cell"><div class="lbl">Survival Time</div><div class="val" id="final-time">0s</div></div>
+    </div>
+    <button id="restart-btn" class="btn btn-blue">Restart Session →</button>
+    <a href="mailto:joseph@michaelsmount.com" class="btn btn-green">Get in Touch →</a>
+    <div class="modal-footer">
+      Built by <a href="mailto:joseph@michaelsmount.com">Joseph Michael</a> &middot;
+      <a href="https://michaelsmount.com">michaelsmount.com</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // DOM REFS
+  var canvas      = document.getElementById('game-canvas');
+  var ctx         = canvas.getContext('2d');
+  var overlay     = document.getElementById('overlay');
+  var startScreen = document.getElementById('start-screen');
+  var scoreEl     = document.getElementById('score-display');
+  var killEl      = document.getElementById('kill-display');
+  var waveEl      = document.getElementById('wave-display');
+  var finalScore  = document.getElementById('final-score');
+  var finalKills  = document.getElementById('final-kills');
+  var finalWave   = document.getElementById('final-wave');
+  var finalTime   = document.getElementById('final-time');
+
+  // PALETTE
+  var C_BG     = '#f4f5f7';
+  var C_BORDER = '#e2e4e9';
+  var C_GREEN  = '#10b981';
+  var C_RED    = '#ef4444';
+  var C_TEXT2  = '#6b7280';
+  var C_TEXT3  = '#9ca3af';
+
+  // DIMENSIONS
+  var W, H, BASE_Y, CHART_H;
+
+  // GAME STATE
+  var running       = false;
+  var gameOver      = false;
+  var score         = 0;
+  var kills         = 0;
+  var wave          = 1;
+  var startTime     = 0;
+  var raf;
+  var enemies       = [];
+  var explosions    = [];
+  var particles     = [];
+  var barData       = [];
+  var spawnTimer    = 0;
+  var spawnInterval = 120;
+  var frameCount    = 0;
+
+  // RESIZE
+  function resize() {
+    var wrap = document.getElementById('game-wrap');
+    W = wrap.clientWidth;
+    H = wrap.clientHeight;
+    canvas.width  = W;
+    canvas.height = H;
+    CHART_H = Math.min(80, H * 0.12);
+    BASE_Y  = H - CHART_H;
+    generateBarData();
+  }
+
+  function generateBarData() {
+    barData = [];
+    var count = Math.ceil(W / 28);
+    for (var i = 0; i < count; i++) {
+      barData.push(0.2 + Math.random() * 0.75);
+    }
+  }
+
+  // INPUT
+  function getCanvasPos(e) {
+    var rect   = canvas.getBoundingClientRect();
+    var scaleX = canvas.width  / rect.width;
+    var scaleY = canvas.height / rect.height;
+    var src    = e.touches ? e.touches[0] : e;
+    return {
+      x: (src.clientX - rect.left) * scaleX,
+      y: (src.clientY - rect.top)  * scaleY
+    };
+  }
+
+  function handleFire(e) {
+    if (!running || gameOver) return;
+    e.preventDefault();
+    var pos = getCanvasPos(e);
+    fireEngagement(pos.x, pos.y);
+  }
+
+  canvas.addEventListener('click',      handleFire);
+  canvas.addEventListener('touchstart', handleFire, { passive: false });
+
+  // SPAWN / FIRE
+  function spawnEnemy() {
+    var x = 24 + Math.random() * (W - 48);
+    enemies.push({
+      x: x,
+      y: -20,
+      size:    14 + Math.random() * 6,
+      speed:   0.8 + wave * 0.18 + Math.random() * 0.4,
+      wobble:  (Math.random() - 0.5) * 0.4,
+      opacity: 1
+    });
+  }
+
+  function fireEngagement(x, y) {
+    explosions.push({
+      x: x, y: y,
+      r: 0,
+      maxR:      40 + Math.min(wave * 4, 40),
+      phase:     'expand',
+      holdTimer: 0,
+      alpha:     1,
+      dead:      false
+    });
+  }
+
+  // DRAW
+  function drawBackground() {
+    ctx.fillStyle = C_BG;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle  = C_BORDER;
+    ctx.lineWidth    = 0.5;
+    ctx.globalAlpha  = 0.6;
+    var step = 40;
+    for (var y = 0; y < BASE_Y; y += step) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+    for (var x = 0; x < W; x += step) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_Y); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    ctx.fillStyle = C_TEXT3;
+    ctx.font      = '500 9px "DM Mono", monospace';
+    ctx.textAlign = 'left';
+    var labels = ['100%', '75%', '50%', '25%'];
+    for (var i = 0; i < labels.length; i++) {
+      var yy = (BASE_Y / 4) * (i + 0.5);
+      ctx.fillText(labels[i], 6, yy + 3);
+    }
+  }
+
+  function drawBase() {
+    var barW = W / barData.length;
+    var pad  = 2;
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, BASE_Y, W, CHART_H);
+
+    ctx.strokeStyle = C_BORDER;
+    ctx.lineWidth   = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, BASE_Y);
+    ctx.lineTo(W, BASE_Y);
+    ctx.stroke();
+
+    for (var i = 0; i < barData.length; i++) {
+      var h   = barData[i];
+      var bh  = h * (CHART_H - 14);
+      var bx  = i * barW + pad;
+      var by  = BASE_Y + (CHART_H - bh - 8);
+      var bww = barW - pad * 2;
+      var grad = ctx.createLinearGradient(0, by, 0, by + bh);
+      grad.addColorStop(0, '#34d399');
+      grad.addColorStop(1, '#10b981');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, bww, bh, [2, 2, 0, 0]);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = C_TEXT2;
+    ctx.font      = '500 10px "DM Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('● Homepage', W / 2, BASE_Y + CHART_H - 4);
+  }
+
+  function drawEnemies() {
+    for (var i = 0; i < enemies.length; i++) {
+      var e = enemies[i];
+      ctx.save();
+      ctx.translate(e.x, e.y);
+      ctx.globalAlpha = e.opacity;
+      var s = e.size;
+
+      ctx.shadowColor = 'rgba(239,68,68,0.3)';
+      ctx.shadowBlur  = 12;
+      ctx.fillStyle   = C_RED;
+
+      ctx.beginPath();
+      ctx.rect(-s * 0.18, -s * 0.7, s * 0.36, s * 0.7);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-s * 0.5, 0);
+      ctx.lineTo( s * 0.5, 0);
+      ctx.lineTo(0,         s * 0.7);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.shadowBlur  = 0;
+      ctx.strokeStyle = '#fca5a5';
+      ctx.lineWidth   = 1.5;
+      ctx.lineJoin    = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-s * 0.5,  -s * 0.9);
+      ctx.lineTo(-s * 0.2,  -s * 1.2);
+      ctx.lineTo( s * 0.1,  -s * 0.85);
+      ctx.lineTo( s * 0.45, -s * 1.1);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+  }
+
+  function drawExplosions() {
+    for (var i = 0; i < explosions.length; i++) {
+      var exp = explosions[i];
+      if (exp.dead) continue;
+      ctx.save();
+      ctx.globalAlpha = exp.alpha;
+
+      ctx.beginPath();
+      ctx.arc(exp.x, exp.y, exp.r, 0, Math.PI * 2);
+      ctx.strokeStyle = C_GREEN;
+      ctx.lineWidth   = 2;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(16,185,129,0.08)';
+      ctx.fill();
+
+      ctx.strokeStyle = C_GREEN;
+      ctx.lineWidth   = 1.5;
+      var gap = exp.r * 0.35;
+      ctx.beginPath();
+      ctx.moveTo(exp.x - exp.r + 4, exp.y);
+      ctx.lineTo(exp.x - gap,       exp.y);
+      ctx.moveTo(exp.x + gap,       exp.y);
+      ctx.lineTo(exp.x + exp.r - 4, exp.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(exp.x, exp.y - exp.r + 4);
+      ctx.lineTo(exp.x, exp.y - gap);
+      ctx.moveTo(exp.x, exp.y + gap);
+      ctx.lineTo(exp.x, exp.y + exp.r - 4);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(exp.x, exp.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = C_GREEN;
+      ctx.fill();
+
+      ctx.restore();
+    }
+  }
+
+  function drawParticles() {
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle   = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // UPDATE
+  function updateEnemies() {
+    for (var i = enemies.length - 1; i >= 0; i--) {
+      var e = enemies[i];
+      e.y += e.speed;
+      e.x += Math.sin(frameCount * 0.03 + i) * e.wobble;
+      if (e.y >= BASE_Y) {
+        triggerGameOver();
+        return;
+      }
+    }
+  }
+
+  function updateExplosions() {
+    var expandSpeed   = 3.5;
+    var contractSpeed = 2.5;
+
+    for (var i = explosions.length - 1; i >= 0; i--) {
+      var exp = explosions[i];
+      if (exp.dead) { explosions.splice(i, 1); continue; }
+
+      if (exp.phase === 'expand') {
+        exp.r += expandSpeed;
+        if (exp.r >= exp.maxR) { exp.phase = 'hold'; exp.holdTimer = 6; }
+      } else if (exp.phase === 'hold') {
+        exp.holdTimer--;
+        if (exp.holdTimer <= 0) exp.phase = 'contract';
+      } else {
+        exp.r -= contractSpeed;
+        exp.alpha = Math.max(0, exp.r / exp.maxR);
+        if (exp.r <= 0) { exp.dead = true; continue; }
+      }
+
+      for (var j = enemies.length - 1; j >= 0; j--) {
+        var en   = enemies[j];
+        var dx   = en.x - exp.x;
+        var dy   = en.y - exp.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < exp.r + en.size * 0.5) {
+          spawnDeathParticles(en.x, en.y);
+          enemies.splice(j, 1);
+          score += 100 * wave;
+          kills++;
+          updateUI();
+        }
+      }
+    }
+  }
+
+  function updateParticles() {
+    for (var i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.x    += p.vx;
+      p.y    += p.vy;
+      p.vy   += 0.08;
+      p.alpha -= 0.035;
+      if (p.alpha <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function updateWave() {
+    var newWave = Math.floor(kills / 20) + 1;
+    if (newWave !== wave) {
+      wave          = newWave;
+      spawnInterval = Math.max(20, Math.round(120 * Math.pow(0.85, wave)));
+    }
+  }
+
+  function updateSpawn() {
+    spawnTimer++;
+    if (spawnTimer >= spawnInterval) {
+      spawnTimer = 0;
+      var count = 1 + Math.floor(wave / 3);
+      for (var i = 0; i < count; i++) {
+        (function(idx) {
+          setTimeout(function() { if (running) spawnEnemy(); }, idx * 120);
+        }(i));
+      }
+    }
+  }
+
+  function spawnDeathParticles(x, y) {
+    for (var i = 0; i < 8; i++) {
+      var angle = (Math.PI * 2 / 8) * i + Math.random() * 0.4;
+      var speed = 1.5 + Math.random() * 2.5;
+      particles.push({
+        x: x, y: y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        r:     2 + Math.random() * 3,
+        alpha: 1,
+        color: Math.random() > 0.5 ? C_GREEN : '#6ee7b7'
+      });
+    }
+  }
+
+  function updateUI() {
+    scoreEl.textContent = '$' + score.toLocaleString();
+    killEl.textContent  = kills.toLocaleString();
+    waveEl.textContent  = wave;
+  }
+
+  // GAME LOOP
+  function loop() {
+    if (!running) return;
+    frameCount++;
+
+    ctx.clearRect(0, 0, W, H);
+    drawBackground();
+    drawExplosions();
+    drawEnemies();
+    drawParticles();
+    drawBase();
+
+    updateEnemies();
+    updateExplosions();
+    updateParticles();
+    updateWave();
+    updateSpawn();
+
+    raf = requestAnimationFrame(loop);
+  }
+
+  // GAME CONTROL
+  function startGame() {
+    score         = 0;
+    kills         = 0;
+    wave          = 1;
+    startTime     = Date.now();
+    enemies       = [];
+    explosions    = [];
+    particles     = [];
+    spawnTimer    = 0;
+    spawnInterval = 120;
+    frameCount    = 0;
+    gameOver      = false;
+    running       = true;
+    updateUI();
+    loop();
+  }
+
+  function triggerGameOver() {
+    running  = false;
+    gameOver = true;
+    cancelAnimationFrame(raf);
+
+    var elapsed = Math.floor((Date.now() - startTime) / 1000);
+    finalScore.textContent = '$' + score.toLocaleString();
+    finalKills.textContent = kills.toLocaleString();
+    finalWave.textContent  = wave;
+    finalTime.textContent  = elapsed + 's';
+
+    overlay.classList.remove('hidden');
+  }
+
+  function restartGame() {
+    overlay.classList.add('hidden');
+    setTimeout(startGame, 320);
+  }
+
+  // BUTTON WIRING
+  document.getElementById('start-btn').addEventListener('click', function () {
+    startScreen.classList.add('hidden');
+    startScreen.addEventListener('transitionend', function () {
+      startScreen.style.display = 'none';
+    }, { once: true });
+    startGame();
+  });
+
+  document.getElementById('restart-btn').addEventListener('click', restartGame);
+
+  // RESIZE (debounced)
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 100);
+  });
+
+  // INITIAL DRAW
+  resize();
+  ctx.clearRect(0, 0, W, H);
+  drawBackground();
+  drawBase();
+
+}());
+</script>
+</body>
+</html>
