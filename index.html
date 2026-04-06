@@ -533,6 +533,43 @@
   }
   .modal-footer a:hover { text-decoration: underline; }
 
+  /* ── PROFESSIONAL LINKS ROW ──────────────────────────────── */
+  .pro-links {
+    display: flex;
+    gap: var(--p-space-200);
+    margin-top: var(--p-space-300);
+  }
+  .btn-ghost {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--p-space-150);
+    padding: var(--p-space-200) var(--p-space-300);
+    border-radius: var(--p-border-radius-200);
+    background: var(--p-color-bg-surface-secondary);
+    border: 1px solid var(--p-color-border);
+    color: var(--p-color-text-secondary);
+    font-family: var(--p-font-family-sans);
+    font-size: var(--p-font-size-300);
+    font-weight: var(--p-font-weight-medium);
+    letter-spacing: var(--p-font-letter-spacing-dense);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background var(--p-motion-duration-100) var(--p-motion-ease),
+      border-color var(--p-motion-duration-100) var(--p-motion-ease),
+      color var(--p-motion-duration-100) var(--p-motion-ease);
+    line-height: var(--p-font-line-height-500);
+  }
+  .btn-ghost:hover {
+    background: var(--p-color-bg-fill-tertiary);
+    border-color: rgba(181, 181, 181, 1);
+    color: var(--p-color-text);
+  }
+  .btn-ghost:active { transform: scale(0.99); }
+
   /* ── TOAST ───────────────────────────────────────────────── */
   #toast {
     position: fixed;
@@ -648,6 +685,10 @@
     </div>
     <button id="restart-btn" class="btn btn-primary">Restart Session →</button>
     <button id="contact-btn" class="btn btn-success">Get in Touch →</button>
+    <div class="pro-links">
+      <a href="Joseph-Michael-Anthony-Kurm.pdf" download class="btn-ghost">📄 Download Resume</a>
+      <a href="https://www.linkedin.com/in/joseph-michael-anthony" target="_blank" rel="noopener noreferrer" class="btn-ghost">🔗 View LinkedIn</a>
+    </div>
     <div class="modal-footer">
       Built by <a href="mailto:joseph@michaelsmount.com">Joseph Michael</a> &middot;
       <a href="https://michaelsmount.com">michaelsmount.com</a>
