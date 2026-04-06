@@ -273,6 +273,20 @@
     .nav-divider { display: none; }
   }
 
+  @media (max-width: 480px) {
+    #hint-text { display: none; }
+    .metric-card {
+      padding-right: var(--p-space-300);
+      min-width: 60px;
+    }
+    .metric-card + .metric-card {
+      padding-left: var(--p-space-300);
+    }
+    .metric-value {
+      font-size: var(--p-font-size-400);
+    }
+  }
+
   /* ── SCORE BAR ───────────────────────────────────────────── */
   #scorebar {
     position: fixed; top: var(--nav-h); left: 0; right: 0;
@@ -288,7 +302,7 @@
     display: flex; flex-direction: column;
     gap: var(--p-space-025);
     padding-right: var(--p-space-500);
-    min-width: 100px;
+    min-width: 80px;
   }
   .metric-card + .metric-card {
     padding-left: var(--p-space-500);
@@ -337,8 +351,9 @@
 
   /* ── OVERLAY SCREENS ─────────────────────────────────────── */
   .screen-overlay {
-    position: fixed; inset: 0;
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
     background: rgba(241, 241, 241, 0.88);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     backdrop-filter: blur(12px) saturate(140%);
     display: flex; align-items: center; justify-content: center;
     z-index: var(--p-z-index-2);
@@ -732,21 +747,30 @@
   // ── GET IN TOUCH ──────────────────────────────────────────
   document.getElementById('contact-btn').addEventListener('click', function () {
     var email = 'joseph@michaelsmount.com';
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(email).then(function () {
-        showToast('Email copied to clipboard');
-      }).catch(function () { showToast(email); });
-    } else {
+
+    function fallbackCopy() {
       try {
         var ta = document.createElement('textarea');
         ta.value = email;
-        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;width:1px;height:1px;';
         document.body.appendChild(ta);
-        ta.focus(); ta.select();
-        document.execCommand('copy');
+        ta.focus();
+        ta.select();
+        // iOS Safari requires setSelectionRange
+        ta.setSelectionRange(0, 99999);
+        var ok = document.execCommand('copy');
         document.body.removeChild(ta);
-        showToast('Email copied to clipboard');
+        showToast(ok ? 'Email copied to clipboard' : email);
       } catch (e) { showToast(email); }
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(function () {
+        showToast('Email copied to clipboard');
+      }).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
     }
     setTimeout(function () { window.location.href = 'mailto:' + email; }, 200);
   });
@@ -913,9 +937,7 @@
     ctx.fillStyle   = 'rgba(124,77,255,0.7)';
     ctx.font        = '600 8px Inter, -apple-system, sans-serif';
     ctx.textAlign   = 'left';
-    ctx.letterSpacing = '0.1em';
-    ctx.fillText('DEFENDING', cx - 68, cy - 5);
-    ctx.letterSpacing = '0';
+    ctx.fillText('D E F E N D I N G', cx - 68, cy - 5);
 
     // Domain name
     ctx.fillStyle = 'rgba(255,255,255,0.92)';
@@ -928,8 +950,19 @@
     var pillH  = 20;
     var pillRx = W - 20;            // right edge of pill
     var pillLx = pillRx - pillW;    // left edge of pill
+    var pillY  = cy - pillH / 2;
+    var pillR  = 10;
     ctx.beginPath();
-    ctx.roundRect(pillLx, cy - pillH / 2, pillW, pillH, 10);
+    ctx.moveTo(pillLx + pillR, pillY);
+    ctx.lineTo(pillLx + pillW - pillR, pillY);
+    ctx.arcTo(pillLx + pillW, pillY, pillLx + pillW, pillY + pillR, pillR);
+    ctx.lineTo(pillLx + pillW, pillY + pillH - pillR);
+    ctx.arcTo(pillLx + pillW, pillY + pillH, pillLx + pillW - pillR, pillY + pillH, pillR);
+    ctx.lineTo(pillLx + pillR, pillY + pillH);
+    ctx.arcTo(pillLx, pillY + pillH, pillLx, pillY + pillH - pillR, pillR);
+    ctx.lineTo(pillLx, pillY + pillR);
+    ctx.arcTo(pillLx, pillY, pillLx + pillR, pillY, pillR);
+    ctx.closePath();
     ctx.fillStyle = 'rgba(4,123,93,0.2)';
     ctx.fill();
     ctx.strokeStyle = 'rgba(80,220,130,0.45)';
@@ -949,8 +982,6 @@
   }
 
   function drawEnemies() {
-    if (!enemySprite) return;
-
     for (var i = 0; i < enemies.length; i++) {
       var e    = enemies[i];
       var draw = e.size * 2.2;           // display size on canvas
@@ -959,18 +990,26 @@
       ctx.globalAlpha = e.opacity;
       ctx.translate(e.x, e.y);
 
-      // Pixelated rendering — no smoothing, retro feel
-      ctx.imageSmoothingEnabled = false;
+      if (enemySprite) {
+        // Pixelated rendering — no smoothing, retro feel
+        ctx.imageSmoothingEnabled = false;
 
-      // Red tint overlay — draw sprite then multiply with red
-      ctx.drawImage(enemySprite, -draw / 2, -draw / 2, draw, draw);
+        // Red tint overlay — draw sprite then multiply with red
+        ctx.drawImage(enemySprite, -draw / 2, -draw / 2, draw, draw);
 
-      // Pulse glow — subtle red halo that throbs
-      var pulse = 0.18 + 0.1 * Math.sin(frameCount * 0.12 + i);
-      ctx.shadowColor = 'rgba(199,10,36,1)';
-      ctx.shadowBlur  = 14 * pulse * (draw / 28);
-      ctx.drawImage(enemySprite, -draw / 2, -draw / 2, draw, draw);
-      ctx.shadowBlur  = 0;
+        // Pulse glow — subtle red halo that throbs
+        var pulse = 0.18 + 0.1 * Math.sin(frameCount * 0.12 + i);
+        ctx.shadowColor = 'rgba(199,10,36,1)';
+        ctx.shadowBlur  = 14 * pulse * (draw / 28);
+        ctx.drawImage(enemySprite, -draw / 2, -draw / 2, draw, draw);
+        ctx.shadowBlur  = 0;
+      } else {
+        // Fallback: plain red circle while sprite loads
+        ctx.beginPath();
+        ctx.arc(0, 0, e.size, 0, Math.PI * 2);
+        ctx.fillStyle = C_RED;
+        ctx.fill();
+      }
 
       ctx.restore();
     }
@@ -1192,7 +1231,11 @@
   // ── BUTTON WIRING ─────────────────────────────────────────
   document.getElementById('start-btn').addEventListener('click', function () {
     startScreen.classList.add('hidden');
+    var hideTimer = setTimeout(function () {
+      startScreen.style.display = 'none';
+    }, 350);
     startScreen.addEventListener('transitionend', function () {
+      clearTimeout(hideTimer);
       startScreen.style.display = 'none';
     }, { once: true });
     startGame();
@@ -1204,7 +1247,15 @@
   var resizeTimer;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(resize, 100);
+    resizeTimer = setTimeout(function () {
+      resize();
+      // Clear any entities with now-stale coordinates
+      if (running) {
+        enemies    = [];
+        explosions = [];
+        particles  = [];
+      }
+    }, 100);
   });
 
   // ── INITIAL DRAW ──────────────────────────────────────────
