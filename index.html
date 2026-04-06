@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Joseph Michael — Ecommerce Retention Consultant | michaelsmount.com</title>
-<meta name="description" content="Joseph Michael is an ecommerce retention consultant specializing in Klaviyo lifecycle strategy and DTC growth. Explore his interactive portfolio — and try to defend the homepage while you're here.">
+<title>Joseph Michael — Klaviyo & Retention Strategist for DTC and B2B Ecommerce</title>
+<meta name="description" content="Joseph Michael builds lifecycle systems that recover revenue from existing customers — Klaviyo flows, retention strategy, and post-purchase programs for DTC and B2B ecommerce brands on Shopify.">
 <meta name="author" content="Joseph Michael">
 <meta name="robots" content="index, follow">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://michaelsmount.com/">
-<meta property="og:title" content="Joseph Michael — Ecommerce Retention Consultant">
-<meta property="og:description" content="Lifecycle strategy, Klaviyo, and retention systems for DTC and B2B ecommerce brands. Coming soon — with a game to keep you busy.">
+<meta property="og:title" content="Joseph Michael — Klaviyo & Retention Strategist for DTC and B2B Ecommerce">
+<meta property="og:description" content="Lifecycle systems, Klaviyo strategy, and retention programs for Shopify brands. Full site coming soon — play the game while you're here.">
 <meta property="og:image" content="https://michaelsmount.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Joseph Michael — Ecommerce Retention Consultant">
-<meta name="twitter:description" content="Lifecycle strategy, Klaviyo, and retention systems for DTC and B2B ecommerce brands. Coming soon — with a game to keep you busy.">
+<meta name="twitter:title" content="Joseph Michael — Klaviyo & Retention Strategist for DTC and B2B Ecommerce">
+<meta name="twitter:description" content="Lifecycle systems, Klaviyo strategy, and retention programs for Shopify brands. Full site coming soon — play the game while you're here.">
 <meta name="twitter:image" content="https://michaelsmount.com/og-image.png">
 
 <!-- Favicon: M-1 colorway inline SVG -->
@@ -620,7 +620,7 @@
   </a>
 
   <div class="nav-divider" aria-hidden="true"></div>
-  <div class="nav-status" role="status" aria-live="polite">Status: Coming Soon</div>
+  <div class="nav-status" role="status" aria-live="polite">Portfolio: Coming Soon</div>
   <div class="nav-spacer"></div>
 
   <a href="mailto:joseph@michaelsmount.com" class="nav-email" aria-label="Email Joseph Michael">
@@ -635,11 +635,11 @@
 <!-- ── SCORE BAR ── -->
 <div id="scorebar" role="region" aria-label="Game metrics">
   <div class="metric-card">
-    <div class="metric-label">Revenue</div>
+    <div class="metric-label">Revenue Retained</div>
     <div class="metric-value success" id="score-display" aria-live="polite">$0</div>
   </div>
   <div class="metric-card">
-    <div class="metric-label">Threats Stopped</div>
+    <div class="metric-label">Bounces Stopped</div>
     <div class="metric-value" id="kill-display" aria-live="polite">0</div>
   </div>
   <div class="metric-card">
@@ -647,51 +647,51 @@
     <div class="metric-value" id="wave-display" aria-live="polite">1</div>
   </div>
   <div class="nav-spacer"></div>
-  <div id="hint-text" aria-hidden="true">Click or tap<br>to fire Engagement</div>
+  <div id="hint-text" aria-hidden="true">Click or tap<br>to fire an Engagement</div>
 </div>
 
 <!-- ── CANVAS ── -->
 <div id="game-wrap">
-  <canvas id="game-canvas" role="application" aria-label="Bounce Rate Defender game"></canvas>
+  <canvas id="game-canvas" role="application" aria-label="Retention Defender — protect the homepage from bouncing visitors"></canvas>
 </div>
 
 <!-- ── START SCREEN ── -->
 <div id="start-screen" class="screen-overlay" role="dialog" aria-modal="true" aria-labelledby="start-title">
   <div class="modal-card">
-    <div class="badge badge-magic">🎮 Arcade Mode</div>
-    <h1 id="start-title">Bounce Rate<br>Defender</h1>
-    <p class="sub">Bad traffic is attacking your site metrics. Fire Engagements to eliminate Bounces before they hit your homepage.</p>
+    <div class="badge badge-magic">🎮 Interactive Portfolio</div>
+    <h1 id="start-title">Retention<br>Defender</h1>
+    <p class="sub">Bouncing visitors are destroying your conversion metrics. Fire targeted Engagements to stop them before they exit — just like a good retention strategy should.</p>
     <ul class="how-to-list" aria-label="How to play">
-      <li><span class="icon" aria-hidden="true">🖱️</span><span><strong>Click or tap</strong> anywhere to fire an Engagement at that location</span></li>
-      <li><span class="icon" aria-hidden="true">🔴</span><span><strong>Red arrows</strong> are Bounces — destroy them before they reach the base</span></li>
-      <li><span class="icon" aria-hidden="true">🟢</span><span><strong>Green reticles</strong> expand on impact — any Bounce in range is eliminated</span></li>
-      <li><span class="icon" aria-hidden="true">⚠️</span><span><strong>One hit</strong> to the bottom bar ends the session</span></li>
+      <li><span class="icon" aria-hidden="true">🖱️</span><span><strong>Click or tap</strong> anywhere on the dashboard to fire an Engagement</span></li>
+      <li><span class="icon" aria-hidden="true">🔴</span><span><strong>Red icons</strong> are Bounces — intercept them before they reach the homepage</span></li>
+      <li><span class="icon" aria-hidden="true">🟢</span><span><strong>Engagement reticles</strong> expand on impact — anything in range gets retained</span></li>
+      <li><span class="icon" aria-hidden="true">⚠️</span><span><strong>One uncontested bounce</strong> ends the session — same as in real ecommerce</span></li>
     </ul>
-    <button id="start-btn" class="btn btn-primary">Launch Dashboard →</button>
+    <button id="start-btn" class="btn btn-primary">Start Defending →</button>
   </div>
 </div>
 
 <!-- ── GAME OVER ── -->
 <div id="overlay" class="screen-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
   <div class="modal-card">
-    <div class="badge badge-critical">Alert: Session Terminated</div>
-    <h2 id="gameover-title">Bounce Rate Exceeded</h2>
-    <p class="sub">A Bounce reached the homepage. Your session metrics have been compromised.</p>
+    <div class="badge badge-critical">Session Ended</div>
+    <h2 id="gameover-title">A Bounce Got Through</h2>
+    <p class="sub">One uncontested exit is all it takes. Here's what you protected before it happened.</p>
     <div class="stats-grid">
-      <div class="stat-cell"><div class="lbl">Revenue Saved</div><div class="val" id="final-score">$0</div></div>
-      <div class="stat-cell"><div class="lbl">Threats Stopped</div><div class="val" id="final-kills">0</div></div>
+      <div class="stat-cell"><div class="lbl">Revenue Retained</div><div class="val" id="final-score">$0</div></div>
+      <div class="stat-cell"><div class="lbl">Bounces Stopped</div><div class="val" id="final-kills">0</div></div>
       <div class="stat-cell"><div class="lbl">Wave Reached</div><div class="val" id="final-wave">1</div></div>
-      <div class="stat-cell"><div class="lbl">Survival Time</div><div class="val" id="final-time">0s</div></div>
+      <div class="stat-cell"><div class="lbl">Time on Site</div><div class="val" id="final-time">0s</div></div>
     </div>
-    <button id="restart-btn" class="btn btn-primary">Restart Session →</button>
-    <button id="contact-btn" class="btn btn-success">Get in Touch →</button>
+    <button id="restart-btn" class="btn btn-primary">Run It Again →</button>
+    <button id="contact-btn" class="btn btn-success">Work With Joseph →</button>
     <div class="pro-links">
       <a href="Joseph-Michael-Anthony-Kurm.pdf" download class="btn-ghost">📄 Download Resume</a>
       <a href="https://www.linkedin.com/in/joseph-michael-anthony" target="_blank" rel="noopener noreferrer" class="btn-ghost">🔗 View LinkedIn</a>
     </div>
     <div class="modal-footer">
-      Built by <a href="mailto:joseph@michaelsmount.com">Joseph Michael</a> &middot;
-      <a href="https://michaelsmount.com">michaelsmount.com</a>
+      Joseph Michael · Klaviyo &amp; Retention Strategist ·
+      <a href="mailto:joseph@michaelsmount.com">joseph@michaelsmount.com</a>
     </div>
   </div>
 </div>
@@ -978,7 +978,7 @@
     ctx.fillStyle   = 'rgba(124,77,255,0.7)';
     ctx.font        = '600 8px Inter, -apple-system, sans-serif';
     ctx.textAlign   = 'left';
-    ctx.fillText('D E F E N D I N G', cx - 68, cy - 5);
+    ctx.fillText('R E T A I N I N G', cx - 68, cy - 5);
 
     // Domain name
     ctx.fillStyle = 'rgba(255,255,255,0.92)';
